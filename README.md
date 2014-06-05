@@ -5,6 +5,4 @@ icore private smart business prototype repository
 
 
 Partners:
-  Software AG
-  Ambient
-  Siemens
+  Software AG, Ambient, Siemens
