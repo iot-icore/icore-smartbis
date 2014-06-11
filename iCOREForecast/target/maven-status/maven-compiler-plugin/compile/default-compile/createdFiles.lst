@@ -1,0 +1,12 @@
+com\siemens\ct\ro\forecastUtils\CVSUtils.class
+com\siemens\ct\ro\forecast\ModelAndOptions.class
+com\siemens\ct\ro\forecast\ICOREForecaster.class
+com\siemens\ct\ro\forecast\MainClass.class
+com\siemens\ct\ro\forecastUtils\Measurements.class
+com\siemens\ct\ro\forecast\IMetric.class
+com\siemens\ct\ro\forecast\RMSEDouble.class
+com\siemens\ct\ro\forecastUtils\DataSplitter.class
+com\siemens\ct\ro\demos\SerializationDemo.class
+com\siemens\ct\ro\forecastUtils\MeasurementData.class
+com\siemens\ct\ro\forecast\RMSE.class
+com\siemens\ct\ro\forecastUtils\WekaHelper.class
