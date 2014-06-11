@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xsd:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xsd:element name="AggregateTemperature"
+    type="p:AggregateTemperatureType" substitutionGroup="eda:Payload"/>
+  <xsd:complexType name="AggregateTemperatureType">
+    <xsd:sequence>
+      <xsd:element name="MIN_temperature" minOccurs="0" type="xsd:decimal"/>
+      <xsd:element name="MAX_temperature" minOccurs="0" type="xsd:decimal"/>
+      <xsd:element name="AVG_temperature" minOccurs="0" type="xsd:double"/>
+      <xsd:element name="temperature_sensor_i" minOccurs="0" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

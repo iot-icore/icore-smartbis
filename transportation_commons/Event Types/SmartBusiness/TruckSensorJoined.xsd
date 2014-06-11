@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xsd:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xsd:element name="TruckSensorJoined" type="p:TruckSensorJoinedType" substitutionGroup="eda:Payload"/>
+  <xsd:complexType name="TruckSensorJoinedType">
+    <xsd:sequence>
+      <xsd:element name="gateway_id" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="temperature_containerTemp" type="xsd:decimal"/>
+      <xsd:element name="temperature_sensor_id_containerTemp" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="humidity" type="xsd:decimal"/>
+      <xsd:element name="temperature_800000201" type="xsd:decimal"/>
+      <xsd:element name="humidity_sensor_id" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="temperature_parcelTemp" type="xsd:decimal"/>
+      <xsd:element name="temperature_sensor_id_parcelTemp" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="value_800000301" type="xsd:double"/>
+      <xsd:element name="sensor_id_800000301" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="temperature__800000401" type="xsd:decimal"/>
+      <xsd:element name="temperature_sensor_id_800000401" minOccurs="0" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xs:element name="CEP_GPS_toVectorLength"
+    type="p:CEP_GPS_toVectorLengthType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="CEP_GPS_toVectorLengthType">
+    <xs:sequence>
+      <xs:element name="Latitude" type="xs:double"/>
+      <xs:element name="Longitude" type="xs:double"/>
+      <xs:element name="UDF_vectorLength_Latitude_Longitude"
+        minOccurs="0" type="xs:double"/>
+      <xs:element name="gateway_id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

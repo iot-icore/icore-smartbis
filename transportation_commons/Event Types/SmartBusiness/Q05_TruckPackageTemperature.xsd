@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://icore.com/SmartBusiness"
+  targetNamespace="http://icore.com/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" 
+  schemaLocation="../Envelope.xsd"/>
+  <xs:element name="Q05_TruckPackageTemperature"
+    type="p:Q05_TruckPackageTemperatureType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="Q05_TruckPackageTemperatureType">
+    <xs:sequence>
+      <xs:element name="truck_id" type="xs:string"/>
+      <xs:element name="package_id" type="xs:string"/>
+      <xs:element name="temperature" type="xs:double"/>
+      <xs:element name="attached" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

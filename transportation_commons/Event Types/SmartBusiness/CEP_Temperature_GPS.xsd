@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xsd:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xsd:element name="CEP_Temperature_GPS"
+    type="p:CEP_Temperature_GPSType" substitutionGroup="eda:Payload"/>
+  <xsd:complexType name="CEP_Temperature_GPSType">
+    <xsd:sequence>
+      <xsd:element name="TempTimestamp" type="xsd:dateTime"/>
+      <xsd:element name="temperature" type="xsd:decimal"/>
+      <xsd:element name="temperature_range" type="xsd:integer"/>
+      <xsd:element name="temperature_change" type="xsd:integer"/>
+      <xsd:element name="calibrated" type="xsd:integer"/>
+      <xsd:element name="Range_alarm" type="xsd:integer"/>
+      <xsd:element name="Change_alarm" type="xsd:integer"/>
+      <xsd:element name="GPSTimestamp" type="xsd:dateTime"/>
+      <xsd:element name="Latitude" type="xsd:double"/>
+      <xsd:element name="Longitude" type="xsd:double"/>
+    </xsd:sequence>
+    
+     <xsd:attribute name ="driver_version" type="xsd:integer"/>
+     
+	 <xsd:attribute name ="request_id" type="xsd:integer"/>
+	 
+	 <xsd:attribute name ="temperature_sensor_id" type="xsd:string"><!--This ID is the MQTT Topic name from sensor, to differ temperature from different sensors-->
+	 </xsd:attribute>
+	 
+	 <xsd:attribute name ="gateway_id" type="xsd:string"><!--This ID is the Gateway for tcp/ip communication-->
+	 </xsd:attribute>
+    
+    
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xs:element name="S04_TemperaturePackage"
+    type="p:S04_TemperaturePackageType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="S04_TemperaturePackageType">
+    <xs:sequence>
+      <xs:element name="attached" type="xs:integer"/>
+      <xs:element name="temperature_sensor_id" type="xs:string"/>
+      <xs:element name="package_id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

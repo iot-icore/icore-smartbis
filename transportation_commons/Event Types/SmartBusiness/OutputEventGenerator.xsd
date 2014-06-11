@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xsd:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xsd:element name="OutputEventGenerator"
+    type="p:OutputEventGeneratorType" substitutionGroup="eda:Payload"/>
+  <xsd:complexType name="OutputEventGeneratorType">
+    <xsd:sequence>
+      <xsd:element name="timestamp_" type="xsd:long"/>
+      <xsd:element name="temperature" type="xsd:decimal"/>
+      <xsd:element name="temperature_range" type="xsd:integer"/>
+      <xsd:element name="temperature_change" type="xsd:integer"/>
+      <xsd:element name="calibrated" type="xsd:integer"/>
+      <xsd:element name="Range_alarm" type="xsd:integer"/>
+      <xsd:element name="Change_alarm" type="xsd:integer"/>
+      <xsd:element name="driver_version" minOccurs="0" type="xsd:integer"/>
+      <xsd:element name="request_id" minOccurs="0" type="xsd:integer"/>
+      <xsd:element name="temperature_sensor_id" minOccurs="0" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

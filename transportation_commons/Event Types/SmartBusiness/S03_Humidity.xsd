@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xs:element name="S03_Humidity" type="p:S03_HumidityType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="S03_HumidityType">
+    <xs:sequence>     
+      <xs:element name="timestamp_" type="xs:dateTime">
+      <xs:annotation> <xs:documentation>Timestamp of the moment the SHT sensor was sampled</xs:documentation> </xs:annotation>  </xs:element>   
+           
+      <xs:element name="humidity" type="xs:decimal">
+      <xs:annotation> <xs:documentation>The humidity measured</xs:documentation> </xs:annotation>  </xs:element>   
+      
+      <xs:element name="temperature" type="xs:decimal">
+      <xs:annotation> <xs:documentation>temperature needed for calculating the due point</xs:documentation> </xs:annotation>  </xs:element>         
+      
+      <xs:element name="humidity_range" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Status of the humidity range 
+          					(0 = in range, 1 = below range, 2 = above range)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
+      <xs:element name="humidity_change" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Status of the humidity change
+          					(0 = in range, 1 = below range, 2 = above range)</xs:documentation>
+        </xs:annotation>
+      </xs:element>     
+      
+     <xs:element name="temperature_valid" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Boolean whether the temperature reading is valid</xs:documentation>
+        </xs:annotation>
+      </xs:element>      
+       
+      <xs:element name="calibrated" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Boolean whether the humidity value was calibrated using a calibration file</xs:documentation>
+        </xs:annotation>
+      </xs:element>     
+      
+      <xs:element name="Range_alarm" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Alarm that checks if the humidity is within range
+          					0 - NO_ALARM - Alarm has been disabled (default)
+          					1 - IN_RANGE - Alarm when the humidity is in the range
+          					2 - OUTSIDE_RANGE - Alarm when the humidity is outside the range</xs:documentation>
+        </xs:annotation>
+      </xs:element> 
+          
+      <xs:element name="Change_alarm" type="xs:integer">
+        <xs:annotation>
+                    <xs:documentation>Alarm that checks if the humidity change is within range
+          					0 - NO_ALARM - Alarm has been disabled (default)
+          					1 - IN_RANGE - Alarm when the humidity is in the range
+          					2 - OUTSIDE_RANGE - Alarm when the humidity is outside the range</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+   </xs:sequence>  
+
+	 <xs:attribute name ="humidity_sensor_id" type="xs:string"><!--This ID is the MQTT Topic name from sensor, 
+	 														to differ humidity from different sensors--> </xs:attribute>	 
+	 <xs:attribute name ="gateway_id" type="xs:string"><!--This ID is the Gateway for tcp/ip communication--> </xs:attribute>	 
+  </xs:complexType>
+</xs:schema>
+

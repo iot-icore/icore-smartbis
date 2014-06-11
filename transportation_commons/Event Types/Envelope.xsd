@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://namespaces.softwareag.com/EDA/Event" targetNamespace="http://namespaces.softwareag.com/EDA/Event"
+	elementFormDefault="qualified">
+	<xsd:element name="Event">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="HeaderType" />
+				<xsd:element name="Body" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="Payload" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Payload" abstract="true" />
+	<xsd:complexType name="HeaderType">
+		<xsd:all>
+			<xsd:element name="Start" type="SAGDateTimeType">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Start date and time of the event.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="End" type="SAGDateTimeType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">End date and time of the event. The use of this field is dependent on how the event is being used.
+						If the value is absent, the event receiving application may set a default one, e.g. start time plus one millisecond.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Kind" type="SAGKindType" minOccurs="0" default="Event">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Indicates whether the event is a new event (Event) or a so-called heartbeat (Heartbeat), which
+						indicates the temporal progress of the stream.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">The unique identifier of the event type. Event Types use qualified names (QNames) as the mechanism
+						for concisely identifying the particular type. The value of type combines the URI and local-name as a string.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Version" type="EventTypeVersionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">The version of the event type with which the event is compatible. Users specify this value if they
+						have chosen to support event type versioning. If the event is not versioned, the event type should not be versioned.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CorrelationID" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">A unique identifier used to associate the event with other events.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EventID" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">The unique identifier of the event. This element can be supplied by emitter or system generated.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Priority" type="EventPriorityType" minOccurs="0" default="Normal">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">The importance of the event to the producer.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProducerID" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">The identifier of the event producer. For example, this can be an application identifier or some
+						globally unique identifier for each producer.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UserID" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">The identifier of the user who emitted the event.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FormatVersion" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">The version of the event format. If the event body contains a full blown envelope (headers and body),
+					    this field is not present. If the value is 9.0, the event body contains no headers.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CustomHeaders" type="CustomHeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Custom header elements.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="CustomHeaderType">
+		<xsd:sequence>
+			<xsd:any namespace="##targetNamespace" minOccurs="1" maxOccurs="unbounded" processContents="lax" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="SAGDateTimeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">Structure for values of date/time information. All DateTime element need to conform to ISO 8601.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime">
+			<xsd:pattern value=".+T.+(Z|([+]|\-).+)" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SAGKindType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Event" />
+			<xsd:enumeration value="Heartbeat" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="EventPriorityType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Normal" />
+			<xsd:enumeration value="High" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="EventTypeVersionType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]+(.[0-9]+)*" />
+			<xsd:minLength value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

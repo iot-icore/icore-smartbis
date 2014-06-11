@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xs:element name="S01_Temperature" type="p:S01_TemperatureType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="S01_TemperatureType">
+  
+    <xs:sequence>   
+      <xs:element name="timestamp_" type="xs:dateTime"/>     
+      <xs:element name="temperature" type="xs:decimal"/>      
+      <xs:element name="temperature_range" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>0=IN_RANGE, 1=BELOW_RANGE, 2=ABOVE_RANGE, 3=CLOSE_TO_BELOW_RANGE, 4=CLOSE_TO_ABOVE_RANGE</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="temperature_change" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>0=IN_RANGE, 1=BELOW_RANGE, 2=ABOVE_RANGE</xs:documentation>
+        </xs:annotation>
+      </xs:element>      
+      <xs:element name="calibrated" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Is the temperature measurement calibrated using a calibration file</xs:documentation>
+        </xs:annotation>
+      </xs:element>      
+      <xs:element name="Range_alarm" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Alarm is caused by range check</xs:documentation>
+        </xs:annotation>
+      </xs:element>     
+      <xs:element name="Change_alarm" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Alarm is caused by change check</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+   </xs:sequence>  
+   
+     <xs:attribute name ="driver_version" type="xs:integer"/>    
+	 <xs:attribute name ="request_id" type="xs:integer"/>	 
+	 <xs:attribute name ="temperature_sensor_id" type="xs:string"><!--This ID is the MQTT Topic name from sensor, 
+	 														to differ temperature from different sensors--> </xs:attribute>	 
+	 <xs:attribute name ="gateway_id" type="xs:string"><!--This ID is the Gateway for tcp/ip communication--> </xs:attribute>	 
+  
+  </xs:complexType>
+</xs:schema>
+
