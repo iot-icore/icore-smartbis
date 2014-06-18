@@ -21,7 +21,6 @@ public class ModelAndOptions implements Serializable {
 	 * @throws Exception if a given option is not supported
 	 */
 	public ModelAndOptions(AbstractClassifier innerModel, String options) throws Exception {
-		super();
 		this.innerModel = innerModel;
 		this.options = options;
 		this.innerModel.setOptions(Utils.splitOptions(options));

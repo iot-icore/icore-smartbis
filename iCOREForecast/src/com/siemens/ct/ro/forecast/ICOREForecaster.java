@@ -2,12 +2,11 @@ package com.siemens.ct.ro.forecast;
 
 import java.io.PrintStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.siemens.ct.ro.forecastUtils.MeasurementData;
-import com.siemens.ct.ro.forecastUtils.Measurements;
 import com.siemens.ct.ro.forecastUtils.WekaHelper;
-import com.siemens.ct.ro.transportation.dataformatfromcep.TemperaturePredicitonType;
+import com.siemens.ct.ro.transportation.dataformatfromcep.TemperaturePredictionType;
 import com.siemens.ct.ro.transportation.dataformatfromcep.TruckSensorJoinedType;
 
 import weka.classifiers.evaluation.NumericPrediction;
@@ -25,11 +24,11 @@ public class ICOREForecaster implements Serializable{
 	private String fieldNamesToBePredicted;
 	private WekaForecaster wekaForecaster;
 	
-	private Measurements storedMeasurements = new Measurements();
+	private List<TruckSensorJoinedType> measurements = new ArrayList<TruckSensorJoinedType>();
 	
 	private static ModelAndOptions defaultModelAndOptions = null;
 	private static final String defaultTickFieldName = "tick";
-	private static final String defaultFieldNamesToBePredicted = "valueTS_002";
+	private static final String defaultFieldNamesToBePredicted = "temperatureParcel";
 	
 	static
 	{
@@ -56,9 +55,10 @@ public class ICOREForecaster implements Serializable{
 	 */
 	public ICOREForecaster(ModelAndOptions modelAndOptions, String tickFieldName,
 			String fieldNamesToBePredicted) throws Exception {
-		super();
+		
 		this.modelAndOptions = modelAndOptions;
 		this.tickFieldName = tickFieldName;
+		
 		if (fieldNamesToBePredicted == null)
 		{
 			throw new IllegalArgumentException("You must specify the field(s) to be predicted");
@@ -68,45 +68,18 @@ public class ICOREForecaster implements Serializable{
 			// set the targets we want to forecast.
 			this.fieldNamesToBePredicted = fieldNamesToBePredicted;
 		}
-	}
-	
-
-	/**
-	 * Trains the 
-	 * @param out an optional varargs parameter supplying progress objects to report/log to
-	 * @throws Exception if the model can't be constructed for some reason.
-	 */
-	public void trainForecaster(Measurements measurements, PrintStream... out) throws Exception {
-		
-		Instances trainSet = WekaHelper.createInstances(measurements);
-		
 		wekaForecaster = new WekaForecaster();
-		wekaForecaster.setBaseForecaster(modelAndOptions.getInnerModel());
 		wekaForecaster.setFieldsToForecast(fieldNamesToBePredicted);
-		wekaForecaster.getTSLagMaker().setTimeStampField(tickFieldName);
-		
-//		wekaForecaster.setOverlayFields(overlayFields);//TODO: ce se intampla daca se executa? unde setez overlay?
-		
-		System.out.println(wekaForecaster.getAlgorithmName());
-		//default values: 
-		//wekaForecaster.getTSLagMaker().getMinLag() == 1
-		//wekaForecaster.getTSLagMaker().getMaxLag() == 12
-		
-		wekaForecaster.buildForecaster(trainSet, out);
-		
-		// prime the forecaster with enough recent historical data
-	    // to cover up to the maximum lag. 
-//		wekaForecaster.primeForecaster(trainSet);
-	}
-
-	public void recordNewMeasurement(MeasurementData data)
-	{
-		storedMeasurements.add(data);
+		wekaForecaster.setBaseForecaster(modelAndOptions.getInnerModel());
+		wekaForecaster.getTSLagMaker().setTimeStampField("time");
+		wekaForecaster.getTSLagMaker().setAdjustForVariance(true);
+		wekaForecaster.getTSLagMaker().setMinLag(1);
+		wekaForecaster.getTSLagMaker().setMaxLag(100);
 	}
 	
 	public void recordNewMeasurement(TruckSensorJoinedType data)
 	{
-		//not yet implemented
+		measurements.add(data);
 	}
 	
 	private List<List<NumericPrediction>> forecastNumericValues(int size, Instances overlayData) throws Exception {
@@ -124,17 +97,6 @@ public class ICOREForecaster implements Serializable{
 		return wekaForecaster.forecast(size);
 	}
 	
-	//pump + forecast; store the data internally
-//	public double[] forecast(int size, Measurements overlayData) throws Exception {
-//		if (size <= 0)
-//		{
-//			throw new IllegalArgumentException("The forecast must be required for at least one value");
-//		}
-//		double[] result = new double[size];
-//		Instances instancesOverlayData = WekaHelper.createInstances(overlayData);
-//		return forecast(size, instancesOverlayData);
-//	}	
-	
 	/**
 	 * 
 	 * @param size the forecast horizon
@@ -147,7 +109,7 @@ public class ICOREForecaster implements Serializable{
 			throw new IllegalArgumentException("The forecast must be required for at least one value");
 		}
 		double[] result = new double[size];
-		Instances primeData = WekaHelper.createInstances(this.storedMeasurements);
+		Instances primeData = WekaHelper.createInstances(this.measurements);
 		wekaForecaster.primeForecaster(primeData);
 		List<List<NumericPrediction>> predictions = forecastNumericValues(size);
 		for(int i=0; i<predictions.size(); i++)
@@ -157,10 +119,33 @@ public class ICOREForecaster implements Serializable{
 		return result;
 	}	
 	
-	public TemperaturePredicitonType forecast()
+	public TemperaturePredictionType forecast()
 	{
-		TemperaturePredicitonType prediction = new TemperaturePredicitonType();
-		//TODO: create prediction
+		TemperaturePredictionType prediction = new TemperaturePredictionType();
+		
+		Instances primeData = WekaHelper.createInstances(this.measurements);
+		try {
+			wekaForecaster.primeForecaster(primeData);
+		} catch (Exception e) {
+			//the prime data cannot be used
+		}
+		
+		int toBeForecasted = 2 * 60 / 10 ;//number of 10-minutes chunk in 2 hours; index 0 = prediction for the next 10 mins
+		
+		List<List<NumericPrediction>> predictions;
+		try {
+			predictions = forecastNumericValues(toBeForecasted);
+			double[] predictionsDouble = new double[toBeForecasted];
+			for(int i=0; i<predictions.size(); i++)
+			{
+				predictionsDouble[i] = predictions.get(i).get(0).predicted();
+			}
+			prediction.setPedictedTempTenMin(""+predictionsDouble[0]);
+			prediction.setPredictedTempOneHour(""+predictionsDouble[5]);
+			prediction.setPredictedTempTwoHours(""+predictionsDouble[11]);
+		} catch (Exception e) {
+		}
+		
 		return prediction;
 	}
 
@@ -225,6 +210,23 @@ public class ICOREForecaster implements Serializable{
 	 */
 	public WekaForecaster getForecaster() {
 		return wekaForecaster;
+	}
+
+	public void trainForecaster(List<TruckSensorJoinedType> trainData,
+			PrintStream out) throws Exception {
+		
+		Instances trainSet = WekaHelper.createInstances(trainData);
+		
+//		System.out.println(trainSet);
+		
+//		wekaForecaster.setOverlayFields(overlayFields);//TODO: ce se intampla daca se executa? unde setez overlay?
+		
+//		System.out.println("Core regression algorithm: " + wekaForecaster.getAlgorithmName());
+		
+		wekaForecaster.buildForecaster(trainSet, out);
+		// prime the forecaster with enough recent historical data
+	    // to cover up to the maximum lag. 
+//		wekaForecaster.primeForecaster(trainSet);
 	}
 	
 }
