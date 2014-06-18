@@ -8,17 +8,25 @@
   <xsd:complexType name="TruckSensorJoinedType">
     <xsd:sequence>
       <xsd:element name="gateway_id" minOccurs="0" type="xsd:string"/>
-      <xsd:element name="temperature_containerTemp" type="xsd:decimal"/>
-      <xsd:element name="temperature_sensor_id_containerTemp" minOccurs="0" type="xsd:string"/>
-      <xsd:element name="humidity" type="xsd:decimal"/>
-      <xsd:element name="temperature_800000201" type="xsd:decimal"/>
+      <xsd:element name="container_temperature_1" type="xsd:double"/>
+      <xsd:element name="container_temperature_sensor_id_1" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="container_temperature_2" type="xsd:double"/>
+      <xsd:element name="container_temperature_sensor_id_2" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="container_temperature_3" type="xsd:double"/>
+      <xsd:element name="container_temperature_sensor_id_3" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="humidity_value" type="xsd:double"/>
+      <xsd:element name="humidity_temperature" type="xsd:double"/>
       <xsd:element name="humidity_sensor_id" minOccurs="0" type="xsd:string"/>
-      <xsd:element name="temperature_parcelTemp" type="xsd:decimal"/>
-      <xsd:element name="temperature_sensor_id_parcelTemp" minOccurs="0" type="xsd:string"/>
-      <xsd:element name="value_800000301" type="xsd:double"/>
-      <xsd:element name="sensor_id_800000301" minOccurs="0" type="xsd:string"/>
-      <xsd:element name="temperature__800000401" type="xsd:decimal"/>
-      <xsd:element name="temperature_sensor_id_800000401" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="hvacStateOn" type="xsd:boolean"/>
+      <xsd:element name="hvacStateValue" type="xsd:double"/>
+      <xsd:element name="hvacActuatorId" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="currentClampValue" type="xsd:double"/>
+      <xsd:element name="currentClamp_sensor_id" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="external_temperature" type="xsd:double"/>
+      <xsd:element name="external_temperature_id" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="parcel_temperature" type="xsd:double"/>
+      <xsd:element name="parcel_temperature_sensor_id" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="timestamp_" type="xsd:dateTime"/>  
     </xsd:sequence>
   </xsd:complexType>
 </xsd:schema>

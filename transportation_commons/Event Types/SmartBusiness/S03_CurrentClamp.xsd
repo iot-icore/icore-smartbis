@@ -4,8 +4,8 @@
   xmlns:p="http://namespaces.softwareag.com/SmartBusiness"
   targetNamespace="http://namespaces.softwareag.com/SmartBusiness" elementFormDefault="qualified">
   <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
-  <xs:element name="S05_CurrentClamp" type="p:S05_CurrentClampType" substitutionGroup="eda:Payload"/>
-  <xs:complexType name="S05_CurrentClampType">
+  <xs:element name="S03_CurrentClamp" type="p:S03_CurrentClampType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="S03_CurrentClampType">
     <xs:sequence>     
      <xs:element name="maxAllowed" type="xs:double">
         <xs:annotation>

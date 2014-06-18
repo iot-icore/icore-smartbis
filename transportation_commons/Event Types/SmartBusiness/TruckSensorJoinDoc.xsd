@@ -4,14 +4,11 @@
   xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
   targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
   <xsd:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
-  <xsd:element name="AggregateTemperature"
-    type="p:AggregateTemperatureType" substitutionGroup="eda:Payload"/>
-  <xsd:complexType name="AggregateTemperatureType">
+  <xsd:element name="TruckSensorJoinDoc" type="p:TruckSensorJoinDocType" substitutionGroup="eda:Payload"/>
+  <xsd:complexType name="TruckSensorJoinDocType">
     <xsd:sequence>
-      <xsd:element name="MIN_temperature" minOccurs="0" type="xsd:double"/>
-      <xsd:element name="MAX_temperature" minOccurs="0" type="xsd:double"/>
-      <xsd:element name="AVG_temperature" minOccurs="0" type="xsd:double"/>
-      <xsd:element name="temperature_sensor_i" minOccurs="0" type="xsd:string"/>
+      <xsd:element
+        name="UDF_sensorToDoc_gateway_id_temperature_temperature_sensor_id_humidity_temperature_humidity_sensor_id_temperature_temperature_sensor_id_value_sensor_id_temperature_temperature_sensor_id" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
 </xsd:schema>

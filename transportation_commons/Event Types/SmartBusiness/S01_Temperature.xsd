@@ -9,7 +9,7 @@
   
     <xs:sequence>   
       <xs:element name="timestamp_" type="xs:dateTime"/>     
-      <xs:element name="temperature" type="xs:decimal"/>      
+      <xs:element name="temperature" type="xs:double"/>      
       <xs:element name="temperature_range" type="xs:integer">
         <xs:annotation>
           <xs:documentation>0=IN_RANGE, 1=BELOW_RANGE, 2=ABOVE_RANGE, 3=CLOSE_TO_BELOW_RANGE, 4=CLOSE_TO_ABOVE_RANGE</xs:documentation>

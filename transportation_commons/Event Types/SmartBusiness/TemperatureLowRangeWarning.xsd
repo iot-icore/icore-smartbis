@@ -9,7 +9,7 @@
     type="p:TemperatureLowRangeWarningType" substitutionGroup="eda:Payload"/>
   <xs:complexType name="TemperatureLowRangeWarningType">
     <xs:sequence>
-      <xs:element name="temperature" type="xs:decimal"/>
+      <xs:element name="temperature" type="xs:double"/>
       <xs:element name="timestamp_" type="xs:dateTime"/>
       <xs:element name="temperature_sensor_i" minOccurs="0" type="xs:string"/>
       <xs:element name="package_id" type="xs:string"/>

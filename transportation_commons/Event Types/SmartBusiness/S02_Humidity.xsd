@@ -4,16 +4,16 @@
   xmlns:p="http://namespaces.softwareag.com/SmartBusiness"
   targetNamespace="http://namespaces.softwareag.com/SmartBusiness" elementFormDefault="qualified">
   <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
-  <xs:element name="S03_Humidity" type="p:S03_HumidityType" substitutionGroup="eda:Payload"/>
-  <xs:complexType name="S03_HumidityType">
+  <xs:element name="S02_Humidity" type="p:S02_HumidityType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="S02_HumidityType">
     <xs:sequence>     
       <xs:element name="timestamp_" type="xs:dateTime">
       <xs:annotation> <xs:documentation>Timestamp of the moment the SHT sensor was sampled</xs:documentation> </xs:annotation>  </xs:element>   
            
-      <xs:element name="humidity" type="xs:decimal">
+      <xs:element name="humidity" type="xs:double">
       <xs:annotation> <xs:documentation>The humidity measured</xs:documentation> </xs:annotation>  </xs:element>   
       
-      <xs:element name="temperature" type="xs:decimal">
+      <xs:element name="temperature" type="xs:double">
       <xs:annotation> <xs:documentation>temperature needed for calculating the due point</xs:documentation> </xs:annotation>  </xs:element>         
       
       <xs:element name="humidity_range" type="xs:integer">

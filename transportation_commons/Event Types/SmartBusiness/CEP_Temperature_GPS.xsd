@@ -9,7 +9,7 @@
   <xsd:complexType name="CEP_Temperature_GPSType">
     <xsd:sequence>
       <xsd:element name="TempTimestamp" type="xsd:dateTime"/>
-      <xsd:element name="temperature" type="xsd:decimal"/>
+      <xsd:element name="temperature" type="xsd:double"/>
       <xsd:element name="temperature_range" type="xsd:integer"/>
       <xsd:element name="temperature_change" type="xsd:integer"/>
       <xsd:element name="calibrated" type="xsd:integer"/>
