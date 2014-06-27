@@ -24,7 +24,7 @@ public class DataConverter {
 	public static double fromStringTo_double(String value) {
 		if (value == null || value.length() == 0
 				|| "null".equalsIgnoreCase(value)) {
-			return Constants.IMPOSSIBLE_VALUE;
+			return Constants.NULL_OR_MISSING_VALUE;
 		} else {
 			return Double.valueOf(value).doubleValue();
 		}

@@ -54,7 +54,7 @@ public class SerializationDemo {
 	}
 
 	private static ByteArrayOutputStream serializeForecasterWithMemoryStream() throws Exception {
-		ICOREForecaster icoreForecaster = new ICOREForecaster(null,  "aaaaa", "aaaaaaaa");
+		ICOREForecaster icoreForecaster = new ICOREForecaster("80:00:00:00:01:01", null,  "aaaaa", "aaaaaaaa");
 		ByteArrayOutputStream memory = new ByteArrayOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(memory);
 		out.writeObject(icoreForecaster);
@@ -86,7 +86,7 @@ public class SerializationDemo {
 
 	private static void serializeForecasterWithFile() throws Exception {
 		//ICOREForecaster icoreForecaster = new ICOREForecaster(null,  "aaaaa", "aaaaaaaa");
-		ICOREForecaster icoreForecaster = new ICOREForecaster();
+		ICOREForecaster icoreForecaster = new ICOREForecaster("80:00:00:00:01:01");
 		FileOutputStream fileOut = new FileOutputStream("serialized/icoreForecaster.ser");
 		ObjectOutputStream out = new ObjectOutputStream(fileOut);
 		out.writeObject(icoreForecaster);

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.siemens.ct.ro.forecastUtils.Constants;
 import com.siemens.ct.ro.forecastUtils.WekaHelper;
 import com.siemens.ct.ro.transportation.dataformatfromcep.TemperaturePredictionType;
 import com.siemens.ct.ro.transportation.dataformatfromcep.TruckSensorJoinedType;
@@ -12,8 +13,6 @@ import com.siemens.ct.ro.transportation.dataformatfromcep.TruckSensorJoinedType;
 import weka.classifiers.evaluation.NumericPrediction;
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.timeseries.WekaForecaster;
-import weka.core.Attribute;
-import weka.core.Instance;
 import weka.core.Instances;
 
 public class ICOREForecaster implements Serializable{
@@ -23,39 +22,52 @@ public class ICOREForecaster implements Serializable{
 	private String tickFieldName;
 	private String fieldNamesToBePredicted;
 	private WekaForecaster wekaForecaster;
+	private String sensorID = "not_defined";
 	
+	//store the recent measurements
 	private List<TruckSensorJoinedType> measurements = new ArrayList<TruckSensorJoinedType>();
 	
 	private static ModelAndOptions defaultModelAndOptions = null;
-	private static final String defaultTickFieldName = "tick";
-	private static final String defaultFieldNamesToBePredicted = "temperatureParcel";
 	
 	static
 	{
 		try {
 			defaultModelAndOptions = new ModelAndOptions(new LinearRegression(), "-S 0 -R 1.0E-8");
 		} catch (Exception e) {
+			//a given option is not supported
+			e.printStackTrace();
 			// TODO logging
 		}
 	}
 	
+//	/**
+//	 * default constructor
+//	 * @throws Exception if a field(s) can't be found, or if multiple fields are specified and this forecaster can't predict multiple fields.
+//	 */
+//	public ICOREForecaster() throws Exception
+//	{
+//		this("not_defined");
+//	}
+	
 	/**
-	 * default constructor
+	 * @param sensorID the id of the sensor for which the predictions are made
 	 * @throws Exception if a field(s) can't be found, or if multiple fields are specified and this forecaster can't predict multiple fields.
 	 */
-	public ICOREForecaster() throws Exception {
-		this(defaultModelAndOptions, defaultTickFieldName, defaultFieldNamesToBePredicted);
+	public ICOREForecaster(String sensorID) throws Exception {
+		this(sensorID, defaultModelAndOptions, Constants.TIME_FIELDNAME, Constants.FIELD_NAMES_TO_PREDICT);
 	}
 	
 	/**
+	 * @param sensorID the id of the sensor 
 	 * @param modelAndOptions pair of models and corresponding options
 	 * @param tickFieldName the name of the tick/timestamp field
 	 * @param fieldNamesToBePredicted 
 	 * @throws Exception if a field(s) can't be found, or if multiple fields are specified and this forecaster can't predict multiple fields.
 	 */
-	public ICOREForecaster(ModelAndOptions modelAndOptions, String tickFieldName,
+	public ICOREForecaster(String sensorID, ModelAndOptions modelAndOptions, String tickFieldName,
 			String fieldNamesToBePredicted) throws Exception {
 		
+		this.sensorID = sensorID;
 		this.modelAndOptions = modelAndOptions;
 		this.tickFieldName = tickFieldName;
 		
@@ -77,14 +89,19 @@ public class ICOREForecaster implements Serializable{
 		wekaForecaster.getTSLagMaker().setMaxLag(100);
 	}
 	
-	public void recordNewMeasurement(TruckSensorJoinedType data)
+	/**
+	 * adds a new measurement to the predictor
+	 * @param data
+	 */
+	public synchronized void recordNewMeasurement(TruckSensorJoinedType data)
 	{
 		measurements.add(data);
-	}
-	
-	private List<List<NumericPrediction>> forecastNumericValues(int size, Instances overlayData) throws Exception {
-			overlayData = setUnknownValues(overlayData, getFieldNamesToBePredicted());
-			return wekaForecaster.forecast(size, overlayData);
+		int lagData = wekaForecaster.getTSLagMaker().getMaxLag();
+		//remove too old data
+		if (measurements.size() > lagData)
+		{
+			measurements = measurements.subList(measurements.size() - lagData, measurements.size() );
+		}
 	}
 	
 	/**
@@ -98,36 +115,21 @@ public class ICOREForecaster implements Serializable{
 	}
 	
 	/**
-	 * 
-	 * @param size the forecast horizon
-	 * @return forecasted double in an array of length 'size'
-	 * @throws Exception
+	 * Computes and returns a predicted value.
+	 * @return the prediction
 	 */
-	public double[] forecast(int size) throws Exception {
-		if (size <= 0)
-		{
-			throw new IllegalArgumentException("The forecast must be required for at least one value");
-		}
-		double[] result = new double[size];
-		Instances primeData = WekaHelper.createInstances(this.measurements);
-		wekaForecaster.primeForecaster(primeData);
-		List<List<NumericPrediction>> predictions = forecastNumericValues(size);
-		for(int i=0; i<predictions.size(); i++)
-		{
-			result[i] = predictions.get(i).get(0).predicted();
-		}
-		return result;
-	}	
-	
 	public TemperaturePredictionType forecast()
 	{
 		TemperaturePredictionType prediction = new TemperaturePredictionType();
+		prediction.setSensorID(this.getSensorID());
 		
 		Instances primeData = WekaHelper.createInstances(this.measurements);
 		try {
 			wekaForecaster.primeForecaster(primeData);
 		} catch (Exception e) {
 			//the prime data cannot be used
+			e.printStackTrace();
+			// TODO logging
 		}
 		
 		int toBeForecasted = 2 * 60 / 10 ;//number of 10-minutes chunk in 2 hours; index 0 = prediction for the next 10 mins
@@ -135,48 +137,38 @@ public class ICOREForecaster implements Serializable{
 		List<List<NumericPrediction>> predictions;
 		try {
 			predictions = forecastNumericValues(toBeForecasted);
-			double[] predictionsDouble = new double[toBeForecasted];
-			for(int i=0; i<predictions.size(); i++)
-			{
-				predictionsDouble[i] = predictions.get(i).get(0).predicted();
-			}
-			prediction.setPedictedTempTenMin(""+predictionsDouble[0]);
-			prediction.setPredictedTempOneHour(""+predictionsDouble[5]);
-			prediction.setPredictedTempTwoHours(""+predictionsDouble[11]);
+			prediction.setPedictedTempTenMin(""+predictions.get(0).get(0).predicted());//the first prediction = the prediction for 10 minutes onwards
+			prediction.setPredictedTempOneHour(""+predictions.get(5).get(0).predicted());//the prediction for 1 hour onwards
+			prediction.setPredictedTempTwoHours(""+predictions.get(11).get(0).predicted());//the prediction for 2 hours onwards
 		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO logging
 		}
 		
 		return prediction;
 	}
 
-	/**
-	 * If needed, removes the values of the data to be forecasted
-	 * @param dataset the dataset containing recent measurements
-	 * @param fieldNamesToSetAsUnknown comma separated names of the 
-	 * @return
-	 */
-	private static Instances setUnknownValues(Instances dataset, String fieldNamesToSetAsUnknown) {
-		String[] tokensFieldNamesToBeSetUnknown = fieldNamesToSetAsUnknown.split(",");
-		Attribute[] attributesToBePredicted = new Attribute[tokensFieldNamesToBeSetUnknown.length];
-		Instances result = new Instances(dataset);
-		for(int i = 0; i<attributesToBePredicted.length; i++)
-		{
-			attributesToBePredicted[i] = result.attribute(tokensFieldNamesToBeSetUnknown[i]);
-		}
-		for(Instance instance : result)
-		{
-			for(Attribute attribute: attributesToBePredicted)
-			{
-				instance.setMissing(attribute);
-			}
-		}
-		return result;
-	}
-	
 	/****************************************************************/
 	/********************boilerplate code****************************/
+	/****************************************************************/
+	
 	/**
-
+	 * 
+	 * @return the ID of the sensor for which the predictions are made
+	 */
+	public String getSensorID() {
+		return this.sensorID;
+	}
+	
+	/**
+	 * Set the sensorID for which the predictions are made
+	 * @param sensorID the ID of the sensor for which the predictions are made
+	 */
+	public void setSensorID(String sensorID)
+	{
+		this.sensorID = sensorID;
+	}
+	
 	/**
 	 * @return the modelAndOptions
 	 */
@@ -191,12 +183,12 @@ public class ICOREForecaster implements Serializable{
 		return tickFieldName;
 	}
 
-	/**
-	 * @param fieldNameTick the fieldNameTick to set
-	 */
-	public void setTickFieldName(String tickFieldName) {
-		this.tickFieldName = tickFieldName;
-	}
+//	/**
+//	 * @param fieldNameTick the fieldNameTick to set
+//	 */
+//	public void setTickFieldName(String tickFieldName) {
+//		this.tickFieldName = tickFieldName;
+//	}
 
 	/**
 	 * @return the fieldNamesToBePredicted, CSV
@@ -217,16 +209,9 @@ public class ICOREForecaster implements Serializable{
 		
 		Instances trainSet = WekaHelper.createInstances(trainData);
 		
-//		System.out.println(trainSet);
-		
 //		wekaForecaster.setOverlayFields(overlayFields);//TODO: ce se intampla daca se executa? unde setez overlay?
 		
-//		System.out.println("Core regression algorithm: " + wekaForecaster.getAlgorithmName());
-		
 		wekaForecaster.buildForecaster(trainSet, out);
-		// prime the forecaster with enough recent historical data
-	    // to cover up to the maximum lag. 
-//		wekaForecaster.primeForecaster(trainSet);
 	}
 	
 }
