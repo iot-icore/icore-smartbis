@@ -2,7 +2,7 @@ package com.siemens.ct.ro.transportation.entities;
 
 import java.math.BigDecimal;
 
-public class CurrentClampMeasurement {
+public class ACUnitMeasurement {
 
 	private long id;
 
@@ -10,11 +10,13 @@ public class CurrentClampMeasurement {
 
 	private long timestamp;
 
-	private BigDecimal currentclamp;
+	private BigDecimal acunit_target;
 
-	private Short currentclamp_range;
+	private Boolean acunit_active;
 
-	private Short currentclamp_change;
+	private Short acunit_range;
+
+	private Short acunit_change;
 
 	private Short calibrated;
 
@@ -26,30 +28,32 @@ public class CurrentClampMeasurement {
 
 	private Short request_id;
 
-	private String currentclamp_sensor_id;
+	private String acunit_id;
 
-	public CurrentClampMeasurement() {
+	public ACUnitMeasurement() {
 		super();
+
 	}
 
-	public CurrentClampMeasurement(long id, long headerID, long timestamp,
-			BigDecimal currentClamp, Short currentClamp_range,
-			Short currentClamp_change, Short calibrated, Short range_alarm,
-			Short change_alarm, Short driver_version, Short request_id,
-			String currentClamp_sensor_id) {
+	public ACUnitMeasurement(long id, long headerID, long timestamp,
+			BigDecimal acunit_target, Boolean acunit_active,
+			Short acunit_range, Short acunit_change, Short calibrated,
+			Short range_alarm, Short change_alarm, Short driver_version,
+			Short request_id, String acunit_id) {
 		super();
 		this.id = id;
 		this.headerID = headerID;
 		this.timestamp = timestamp;
-		this.currentclamp = currentClamp;
-		this.currentclamp_range = currentClamp_range;
-		this.currentclamp_change = currentClamp_change;
+		this.acunit_target = acunit_target;
+		this.acunit_active = acunit_active;
+		this.acunit_range = acunit_range;
+		this.acunit_change = acunit_change;
 		this.calibrated = calibrated;
 		this.range_alarm = range_alarm;
 		this.change_alarm = change_alarm;
 		this.driver_version = driver_version;
 		this.request_id = request_id;
-		this.currentclamp_sensor_id = currentClamp_sensor_id;
+		this.acunit_id = acunit_id;
 	}
 
 	public long getId() {
@@ -76,28 +80,36 @@ public class CurrentClampMeasurement {
 		this.timestamp = timestamp;
 	}
 
-	public BigDecimal getCurrentClamp() {
-		return currentclamp;
+	public BigDecimal getAcunit_target() {
+		return acunit_target;
 	}
 
-	public void setCurrentClamp(BigDecimal currentClamp) {
-		this.currentclamp = currentClamp;
+	public void setAcunit_target(BigDecimal acunit_target) {
+		this.acunit_target = acunit_target;
 	}
 
-	public Short getCurrentClamp_range() {
-		return currentclamp_range;
+	public Boolean getAcunit_active() {
+		return acunit_active;
 	}
 
-	public void setCurrentClamp_range(Short currentClamp_range) {
-		this.currentclamp_range = currentClamp_range;
+	public void setAcunit_active(Boolean acunit_active) {
+		this.acunit_active = acunit_active;
 	}
 
-	public Short getCurrentClamp_change() {
-		return currentclamp_change;
+	public Short getAcunit_range() {
+		return acunit_range;
 	}
 
-	public void setCurrentClamp_change(Short currentClamp_change) {
-		this.currentclamp_change = currentClamp_change;
+	public void setAcunit_range(Short acunit_range) {
+		this.acunit_range = acunit_range;
+	}
+
+	public Short getAcunit_change() {
+		return acunit_change;
+	}
+
+	public void setAcunit_change(Short acunit_change) {
+		this.acunit_change = acunit_change;
 	}
 
 	public Short getCalibrated() {
@@ -140,12 +152,12 @@ public class CurrentClampMeasurement {
 		this.request_id = request_id;
 	}
 
-	public String getCurrentClamp_sensor_id() {
-		return currentclamp_sensor_id;
+	public String getAcunit_id() {
+		return acunit_id;
 	}
 
-	public void setCurrentClamp_sensor_id(String currentClamp_sensor_id) {
-		this.currentclamp_sensor_id = currentClamp_sensor_id;
+	public void setAcunit_id(String acunit_id) {
+		this.acunit_id = acunit_id;
 	}
 
 }

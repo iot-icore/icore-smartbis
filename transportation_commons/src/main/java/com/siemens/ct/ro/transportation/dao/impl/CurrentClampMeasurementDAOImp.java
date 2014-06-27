@@ -157,4 +157,25 @@ public class CurrentClampMeasurementDAOImp implements CurrentClampMeasurementDAO
 		this.entityManager = entityManager;
 	}
 
+	@Transactional
+	public CurrentClampMeasurement getLastCCMeasurement(String sensorID, long startTime) {
+
+		CurrentClampMeasurement result = null;
+
+		try {
+			TypedQuery<CurrentClampMeasurement> getCurrentClampMeasurement = entityManager
+					.createQuery("FROM currentClampmeasurement op WHERE op.currentClamp_sensor_id='"+ sensorID
+							+ "' and " + " op.timestamp >"
+							+ startTime
+							+ " order by op.timestamp desc ",CurrentClampMeasurement.class );
+
+			List<CurrentClampMeasurement> ccMeasurements = getCurrentClampMeasurement.getResultList();
+			result = (CurrentClampMeasurement) ccMeasurements.get(ccMeasurements.size()-1);
+		} catch (IllegalArgumentException illegalArgumentException) {
+			// Thrown if the query string is found to be invalid
+		}
+
+		return result;
+	}
+
 }

@@ -30,4 +30,6 @@ public interface TemperatureMeasurementDAO {
 			String sensorID, long startTimestamp, long finishTimestamp,
 			double minimumAcceptedTemperature, double maximumAcceptedTemperature);
 
+	public TemperatureMeasurement getLastMeasurement(String sensorID,long startTimestamp);
+
 }

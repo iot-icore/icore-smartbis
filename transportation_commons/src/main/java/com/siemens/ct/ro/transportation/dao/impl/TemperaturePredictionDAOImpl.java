@@ -14,8 +14,9 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.siemens.ct.ro.transportation.dao.TemperatureMeasurementDAO;
-import com.siemens.ct.ro.transportation.entities.TemperatureMeasurement;
+import com.siemens.ct.ro.transportation.dao.TemperaturePredictionDAO;
+import com.siemens.ct.ro.transportation.dao.TemperaturePredictionDAO;
+import com.siemens.ct.ro.transportation.entities.TemperaturePrediction;
 
 /**
  * @author dan.puiu
@@ -23,31 +24,31 @@ import com.siemens.ct.ro.transportation.entities.TemperatureMeasurement;
  */
 
 @Transactional
-@Repository("TemperatureMeasurementDAO")
-public class TemperatureMeasurementDAOImp implements TemperatureMeasurementDAO {
+@Repository("TemperaturePredictionDAOImpl")
+public class TemperaturePredictionDAOImpl implements TemperaturePredictionDAO {
 
 
 	private EntityManager entityManager;
 
 	@Transactional
-	public TemperatureMeasurement addTemperatureMeasurement(
-			TemperatureMeasurement temperatureMeasurementToAdd) {
-		entityManager.persist(temperatureMeasurementToAdd);
-		return temperatureMeasurementToAdd;
+	public TemperaturePrediction addTemperaturePrediction(
+			TemperaturePrediction TemperaturePredictionToAdd) {
+		entityManager.persist(TemperaturePredictionToAdd);
+		return TemperaturePredictionToAdd;
 	}
 
 	@Transactional
-	public TemperatureMeasurement getTemperatureMeasurement(Long id) {
-		TemperatureMeasurement result = null;
+	public TemperaturePrediction getTemperaturePrediction(Long id) {
+		TemperaturePrediction result = null;
 
 		try {
-			Query getTemperatureMeasurement = entityManager
-					.createQuery("FROM temperaturemeasurement op WHERE op.id='"
+			Query getTemperaturePrediction = entityManager
+					.createQuery("FROM temperatureprediction op WHERE op.id='"
 							+ id + "'");
 
 			// The PackageUnit id is unique so the list will always hold exactly
 			// one element
-			result = (TemperatureMeasurement) getTemperatureMeasurement
+			result = (TemperaturePrediction) getTemperaturePrediction
 					.getResultList().get(0);
 		} catch (IllegalArgumentException illegalArgumentException) {
 			// Thrown if the query string is found to be invalid
@@ -57,11 +58,11 @@ public class TemperatureMeasurementDAOImp implements TemperatureMeasurementDAO {
 	}
 
 	@Transactional
-	public boolean deleteTemperatureMeasurement(Long id) {
-		TemperatureMeasurement temperatureMeasurementToBeDeleted = getTemperatureMeasurement(id);
+	public boolean deleteTemperaturePrediction(Long id) {
+		TemperaturePrediction TemperaturePredictionToBeDeleted = getTemperaturePrediction(id);
 
 		try {
-			entityManager.remove(temperatureMeasurementToBeDeleted);
+			entityManager.remove(TemperaturePredictionToBeDeleted);
 		} catch (TransactionRequiredException transactionRequiredException) {
 			// Thrown if invoked on a container-managed entity manager of type
 			// PersistenceContextType.TRANSACTION and there is no transaction
@@ -73,28 +74,28 @@ public class TemperatureMeasurementDAOImp implements TemperatureMeasurementDAO {
 	}
 
 	@Transactional
-	public List<TemperatureMeasurement> getTemperatureMeasurements(
+	public List<TemperaturePrediction> getTemperaturePredictions(
 			String sensorID, long startTimestamp, long finishTimestamp) {
 
-		List<TemperatureMeasurement> result = null;
+		List<TemperaturePrediction> result = null;
 
 		try {
-			// TypedQuery<TemperatureMeasurement> getTemperatureMeasurement =
+			// TypedQuery<TemperaturePrediction> getTemperaturePrediction =
 			// entityManager.createQuery(
-			// "FROM temperaturemeasurement op WHERE op.temperature_sensor_id='"
+			// "FROM TemperaturePrediction op WHERE op.temperature_sensor_id='"
 			// + sensorID + "' and "
 			// + "op.timestamp > " + startTimestamp + " and op.timestamp <" +
-			// finishTimestamp, TemperatureMeasurement.class);
+			// finishTimestamp, TemperaturePrediction.class);
 
-			TypedQuery<TemperatureMeasurement> getTemperatureMeasurement = entityManager
+			TypedQuery<TemperaturePrediction> getTemperaturePrediction = entityManager
 					.createQuery(
-							"FROM temperaturemeasurement op WHERE op.temperature_sensor_id='"
+							"FROM temperatureprediction op WHERE op.temperatureSensorIdContainerTemp='"
 									+ sensorID + "' and " + " op.timestamp <"
 									+ finishTimestamp
 									+ " order by op.timestamp ",
-							TemperatureMeasurement.class);
+							TemperaturePrediction.class);
 
-			result = getTemperatureMeasurement.getResultList();
+			result = getTemperaturePrediction.getResultList();
 
 		} catch (IllegalArgumentException illegalArgumentException) {
 			// Thrown if the query string is found to be invalid
@@ -104,17 +105,17 @@ public class TemperatureMeasurementDAOImp implements TemperatureMeasurementDAO {
 	}
 
 	@Transactional
-	public List<TemperatureMeasurement> getTemperatureMeasurementsOutsideBounds(
+	public List<TemperaturePrediction> getTemperaturePredictionsOutsideBounds(
 			String sensorID, long startTimestamp, long finishTimestamp,
 			double minimumAcceptedTemperature, double maximumAcceptedTemperature) {
 
-		List<TemperatureMeasurement> result = null;
+		List<TemperaturePrediction> result = null;
 
 		try {
 
-			TypedQuery<TemperatureMeasurement> getTemperatureMeasurement = entityManager
+			TypedQuery<TemperaturePrediction> getTemperaturePrediction = entityManager
 					.createQuery(
-							"FROM temperaturemeasurement op WHERE op.temperature_sensor_id='"
+							"FROM temperatureprediction op WHERE op.temperatureSensorIdContainerTemp='"
 									+ sensorID + "' and " + " op.timestamp <"
 									+ finishTimestamp
 									+ " and (op.temperature < "
@@ -122,9 +123,9 @@ public class TemperatureMeasurementDAOImp implements TemperatureMeasurementDAO {
 									+ " or op.temperature > "
 									+ maximumAcceptedTemperature + ")"
 									+ " order by op.timestamp ",
-							TemperatureMeasurement.class);
+							TemperaturePrediction.class);
 
-			result = getTemperatureMeasurement.getResultList();
+			result = getTemperaturePrediction.getResultList();
 
 		} catch (IllegalArgumentException illegalArgumentException) {
 			// Thrown if the query string is found to be invalid
@@ -132,6 +133,7 @@ public class TemperatureMeasurementDAOImp implements TemperatureMeasurementDAO {
 
 		return result;
 	}
+
 
 	public EntityManager getEntityManager() {
 		return entityManager;
@@ -142,29 +144,30 @@ public class TemperatureMeasurementDAOImp implements TemperatureMeasurementDAO {
 		this.entityManager = entityManager;
 	}
 
-	@Transactional
-	public TemperatureMeasurement getLastMeasurement(String sensorID, long startTimestamp) {
-
-		TemperatureMeasurement result = null;
+	@Override
+	public List<TemperaturePrediction> getTemperaturePredictions(
+			String sensorID) {
+		List<TemperaturePrediction> result = null;
 
 		try {
-			TypedQuery<TemperatureMeasurement> getTemperatureMeasurement = entityManager
+			// TypedQuery<TemperaturePrediction> getTemperaturePrediction =
+			// entityManager.createQuery(
+			// "FROM TemperaturePrediction op WHERE op.temperature_sensor_id='"
+			// + sensorID + "' and "
+			// + "op.timestamp > " + startTimestamp + " and op.timestamp <" +
+			// finishTimestamp, TemperaturePrediction.class);
+
+			TypedQuery<TemperaturePrediction> getTemperaturePrediction = entityManager
 					.createQuery(
-							"FROM temperaturemeasurement op WHERE op.temperature_sensor_id='"
-									+ sensorID + "' and " + " op.timestamp >"
-									+ startTimestamp
-									+ " order by op.timestamp desc ",
-							TemperatureMeasurement.class);
+							"FROM temperatureprediction op WHERE op.temperatureSensorIdContainerTemp='"
+									+ sensorID + "' " 
+									+ " order by op.timestamp ",
+							TemperaturePrediction.class);
 
+			result = getTemperaturePrediction.getResultList();
 
-			List<TemperatureMeasurement> measurements = getTemperatureMeasurement.getResultList();
-			if (measurements.size()>0)
-			{	
-				result = (TemperatureMeasurement) measurements.get(measurements.size()-1);
-			}
 		} catch (IllegalArgumentException illegalArgumentException) {
 			// Thrown if the query string is found to be invalid
-			illegalArgumentException.printStackTrace();
 		}
 
 		return result;

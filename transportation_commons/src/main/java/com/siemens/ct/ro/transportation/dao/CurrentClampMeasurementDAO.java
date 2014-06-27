@@ -20,4 +20,6 @@ public interface CurrentClampMeasurementDAO {
 			String sensorID, long startTimestamp, long finishTimestamp,
 			double minimumAcceptedCurrentClamp, double maximumAcceptedCurrentClamp);
 
+	public CurrentClampMeasurement getLastCCMeasurement(String sensorID, long timpestamp20secAgo);
+
 }

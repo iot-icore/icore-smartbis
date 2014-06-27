@@ -112,15 +112,6 @@ public class HumidityMeasurementDAOImp implements HumidityMeasurementDAO {
 		List<HumidityMeasurement> result = null;
 
 		try {
-			// TypedQuery<HumidityMeasurement> getHumidityMeasurement =
-			// entityManager.createQuery(
-			// "FROM humiditymeasurement op WHERE op.humidity_sensor_id='"
-			// + sensorID + "' and "
-			// + "op.timestamp > " + startTimestamp + " and op.timestamp <"
-			// +
-			// finishTimestamp + " and (op.humidity < " +
-			// minimumAcceptedHumidity + " or op.humidity > " +
-			// maximumAcceptedHumidity + ")", HumidityMeasurement.class);
 
 			TypedQuery<HumidityMeasurement> getHumidityMeasurement = entityManager
 					.createQuery(
@@ -155,6 +146,30 @@ public class HumidityMeasurementDAOImp implements HumidityMeasurementDAO {
 	@PersistenceContext
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
+	}
+
+	@Transactional
+	public HumidityMeasurement getLastHumidityMeasurement(String sensorID, long startTimestamp) {
+		HumidityMeasurement result = null;
+
+		try {
+
+
+			TypedQuery<HumidityMeasurement> getHumidityMeasurement = entityManager
+					.createQuery("FROM humiditymeasurement op WHERE op.humidity_sensor_id='"
+							+ sensorID + "' and " + " op.timestamp >"
+							+ startTimestamp
+							+ " order by op.timestamp desc ", HumidityMeasurement.class);
+			
+			List<HumidityMeasurement> humidityMeasurements = getHumidityMeasurement.getResultList();
+			if(humidityMeasurements.size()>0)
+			result = (HumidityMeasurement) humidityMeasurements.get(humidityMeasurements.size()-1);
+		} catch (IllegalArgumentException illegalArgumentException) {
+			// Thrown if the query string is found to be invalid
+			illegalArgumentException.printStackTrace();
+		}
+
+		return result;
 	}
 
 }

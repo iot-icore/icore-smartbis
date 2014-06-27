@@ -57,6 +57,7 @@ public class TemperaturePredictionType {
     protected String predictedTempOneHour;
     @XmlElement(name = "Predicted_temp_two_hours", required = true)
     protected String predictedTempTwoHours;
+	private String sensorID;
 
     /**
 * Gets the value of the gatewayId property.
@@ -177,5 +178,14 @@ public class TemperaturePredictionType {
     public void setPredictedTempTwoHours(String value) {
         this.predictedTempTwoHours = value;
     }
+
+	public void setSensorID(String sensorID) {
+		this.sensorID = sensorID;
+	}
+	
+	public String getSensorID()
+	{
+		return sensorID;
+	}
 
 }

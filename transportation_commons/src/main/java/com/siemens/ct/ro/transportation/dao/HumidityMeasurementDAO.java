@@ -20,4 +20,6 @@ public interface HumidityMeasurementDAO {
 			String sensorID, long startTimestamp, long finishTimestamp,
 			double minimumAcceptedHumidity, double maximumAcceptedHumidity);
 
+	public HumidityMeasurement getLastHumidityMeasurement(String sensorID,long startTimestamp);
+
 }
