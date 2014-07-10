@@ -1,6 +1,7 @@
 package com.siemens.ct.ro.transportation.entities;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
+
 
 public class HumidityMeasurement {
 
@@ -10,11 +11,11 @@ public class HumidityMeasurement {
 
 	private long timestamp;
 
-	private BigDecimal humidity;
+	private double humidity;
 
-	private Short humidity_range;
+	private BigInteger humidity_range;
 
-	private Short humidity_change;
+	private BigInteger humidity_change;
 
 	private Short calibrated;
 
@@ -33,7 +34,7 @@ public class HumidityMeasurement {
 	}
 
 	public HumidityMeasurement(long id, long headerID, long timestamp,
-			BigDecimal humidity, Short humidity_range, Short humidity_change,
+			double humidity, BigInteger humidity_range, BigInteger humidity_change,
 			Short calibrated, Short range_alarm, Short change_alarm,
 			Short driver_version, Short request_id, String humidity_sensor_id) {
 		super();
@@ -75,27 +76,27 @@ public class HumidityMeasurement {
 		this.timestamp = timestamp;
 	}
 
-	public BigDecimal getHumidity() {
+	public double getHumidity() {
 		return humidity;
 	}
 
-	public void setHumidity(BigDecimal humidity) {
+	public void setHumidity(double humidity) {
 		this.humidity = humidity;
 	}
 
-	public Short getHumidity_range() {
+	public BigInteger getHumidity_range() {
 		return humidity_range;
 	}
 
-	public void setHumidity_range(Short humidity_range) {
+	public void setHumidity_range(BigInteger humidity_range) {
 		this.humidity_range = humidity_range;
 	}
 
-	public Short getHumidity_change() {
+	public BigInteger getHumidity_change() {
 		return humidity_change;
 	}
 
-	public void setHumidity_change(Short humidity_change) {
+	public void setHumidity_change(BigInteger humidity_change) {
 		this.humidity_change = humidity_change;
 	}
 

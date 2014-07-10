@@ -170,7 +170,8 @@ public class CurrentClampMeasurementDAOImp implements CurrentClampMeasurementDAO
 							+ " order by op.timestamp desc ",CurrentClampMeasurement.class );
 
 			List<CurrentClampMeasurement> ccMeasurements = getCurrentClampMeasurement.getResultList();
-			result = (CurrentClampMeasurement) ccMeasurements.get(ccMeasurements.size()-1);
+			if(ccMeasurements.size()>0)
+				result = (CurrentClampMeasurement) ccMeasurements.get(ccMeasurements.size()-1);
 		} catch (IllegalArgumentException illegalArgumentException) {
 			// Thrown if the query string is found to be invalid
 		}

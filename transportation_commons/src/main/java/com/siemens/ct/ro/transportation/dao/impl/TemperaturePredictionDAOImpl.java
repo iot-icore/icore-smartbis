@@ -89,7 +89,7 @@ public class TemperaturePredictionDAOImpl implements TemperaturePredictionDAO {
 
 			TypedQuery<TemperaturePrediction> getTemperaturePrediction = entityManager
 					.createQuery(
-							"FROM temperatureprediction op WHERE op.temperatureSensorIdContainerTemp='"
+							"FROM temperatureprediction op WHERE op.temperatureSensorID='"
 									+ sensorID + "' and " + " op.timestamp <"
 									+ finishTimestamp
 									+ " order by op.timestamp ",
@@ -115,7 +115,7 @@ public class TemperaturePredictionDAOImpl implements TemperaturePredictionDAO {
 
 			TypedQuery<TemperaturePrediction> getTemperaturePrediction = entityManager
 					.createQuery(
-							"FROM temperatureprediction op WHERE op.temperatureSensorIdContainerTemp='"
+							"FROM temperatureprediction op WHERE op.temperatureSensorID='"
 									+ sensorID + "' and " + " op.timestamp <"
 									+ finishTimestamp
 									+ " and (op.temperature < "
@@ -159,7 +159,7 @@ public class TemperaturePredictionDAOImpl implements TemperaturePredictionDAO {
 
 			TypedQuery<TemperaturePrediction> getTemperaturePrediction = entityManager
 					.createQuery(
-							"FROM temperatureprediction op WHERE op.temperatureSensorIdContainerTemp='"
+							"FROM temperatureprediction op WHERE op.temperatureSensorID='"
 									+ sensorID + "' " 
 									+ " order by op.timestamp ",
 							TemperaturePrediction.class);

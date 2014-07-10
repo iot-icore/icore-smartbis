@@ -1,6 +1,7 @@
 package com.siemens.ct.ro.transportation.entities;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class TemperatureMeasurement {
 
@@ -12,9 +13,9 @@ public class TemperatureMeasurement {
 
 	private BigDecimal temperature;
 
-	private Short temperature_range;
+	private BigInteger temperature_range;
 
-	private Short temperature_change;
+	private BigInteger temperature_change;
 
 	private Short calibrated;
 
@@ -27,14 +28,16 @@ public class TemperatureMeasurement {
 	private Short request_id;
 
 	private String temperature_sensor_id;
+	
+	private String gateway;
 
 	public TemperatureMeasurement() {
 		super();
 	}
 
 	public TemperatureMeasurement(long id, long headerID, int timestamp_,
-			BigDecimal temperature, Short temperature_range,
-			Short temperature_change, Short calibrated, Short range_alarm,
+			BigDecimal temperature, BigInteger temperature_range,
+			BigInteger temperature_change, Short calibrated, Short range_alarm,
 			Short change_alarm, Short driver_version, Short request_id,
 			String temperature_sensor_id) {
 		super();
@@ -84,19 +87,19 @@ public class TemperatureMeasurement {
 		this.temperature = temperature;
 	}
 
-	public Short getTemperature_range() {
+	public BigInteger getTemperature_range() {
 		return temperature_range;
 	}
 
-	public void setTemperature_range(Short temperature_range) {
+	public void setTemperature_range(BigInteger temperature_range) {
 		this.temperature_range = temperature_range;
 	}
 
-	public Short getTemperature_change() {
+	public BigInteger getTemperature_change() {
 		return temperature_change;
 	}
 
-	public void setTemperature_change(Short temperature_change) {
+	public void setTemperature_change(BigInteger temperature_change) {
 		this.temperature_change = temperature_change;
 	}
 
@@ -146,6 +149,14 @@ public class TemperatureMeasurement {
 
 	public void setTemperature_sensor_id(String temperature_sensor_id) {
 		this.temperature_sensor_id = temperature_sensor_id;
+	}
+
+	public String getGateway() {
+		return gateway;
+	}
+
+	public void setGateway(String gateway) {
+		this.gateway = gateway;
 	}
 
 }

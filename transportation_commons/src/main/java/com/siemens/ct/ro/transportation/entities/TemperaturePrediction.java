@@ -3,7 +3,7 @@ package com.siemens.ct.ro.transportation.entities;
 public class TemperaturePrediction {
 	private long id;
 	private String gatewayId;
-	private String temperatureSensorIdContainerTemp;
+	private String temperatureSensorID;
 	private String pedictedTempTenMin;
 	private String predictedTempOneHour;
 	private String predictedTempTwoHours;
@@ -14,13 +14,13 @@ public class TemperaturePrediction {
 	}
 
 	public TemperaturePrediction(long id, String gatewayId,
-			String temperatureSensorIdContainerTemp, String pedictedTempTenMin,
+			String temperatureSensorID, String pedictedTempTenMin,
 			String predictedTempOneHour, String predictedTempTwoHours,
 			long timestamp) {
 		super();
 		this.id = id;
 		this.gatewayId = gatewayId;
-		this.temperatureSensorIdContainerTemp = temperatureSensorIdContainerTemp;
+		this.temperatureSensorID = temperatureSensorID;
 		this.pedictedTempTenMin = pedictedTempTenMin;
 		this.predictedTempOneHour = predictedTempOneHour;
 		this.predictedTempTwoHours = predictedTempTwoHours;
@@ -43,13 +43,13 @@ public class TemperaturePrediction {
 		this.gatewayId = gatewayId;
 	}
 
-	public String getTemperatureSensorIdContainerTemp() {
-		return temperatureSensorIdContainerTemp;
+	public String getTemperatureSensorID() {
+		return temperatureSensorID;
 	}
 
-	public void setTemperatureSensorIdContainerTemp(
-			String temperatureSensorIdContainerTemp) {
-		this.temperatureSensorIdContainerTemp = temperatureSensorIdContainerTemp;
+	public void setTemperatureSensorID(
+			String temperatureSensorID) {
+		this.temperatureSensorID = temperatureSensorID;
 	}
 
 	public String getPedictedTempTenMin() {
