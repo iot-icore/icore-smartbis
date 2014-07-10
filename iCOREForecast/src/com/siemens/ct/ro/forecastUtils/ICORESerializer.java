@@ -26,7 +26,7 @@ public class ICORESerializer {
 		fileOut.close();
 	}
 
-	public ICOREForecaster deserialize(String filename) {
+	public static ICOREForecaster deserialize(String filename) {
 		FileInputStream fileIn = null;
 		ObjectInputStream in = null;
 		ICOREForecaster icoreForecaster = null;

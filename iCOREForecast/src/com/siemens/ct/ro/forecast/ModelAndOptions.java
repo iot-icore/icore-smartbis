@@ -23,7 +23,7 @@ public class ModelAndOptions implements Serializable {
 	public ModelAndOptions(AbstractClassifier innerModel, String options) throws Exception {
 		this.innerModel = innerModel;
 		this.options = options;
-		this.innerModel.setOptions(Utils.splitOptions(options));
+		this.innerModel.setOptions(Utils.splitOptions(getOptions()));
 	}
 	
 	/**
