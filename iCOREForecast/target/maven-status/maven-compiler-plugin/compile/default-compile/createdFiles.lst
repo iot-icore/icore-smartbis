@@ -2,6 +2,7 @@ com\siemens\ct\ro\forecast\ICOREForecaster.class
 com\siemens\ct\ro\forecastUtils\GenericDataSplitter.class
 com\siemens\ct\ro\forecast\IMetric.class
 com\siemens\ct\ro\demos\SerializationDemo.class
+com\siemens\ct\ro\demos\ObjectInspector.class
 com\siemens\ct\ro\forecastUtils\WekaHelper.class
 com\siemens\ct\ro\forecast\ModelAndOptions.class
 com\siemens\ct\ro\forecast\MainClass.class
