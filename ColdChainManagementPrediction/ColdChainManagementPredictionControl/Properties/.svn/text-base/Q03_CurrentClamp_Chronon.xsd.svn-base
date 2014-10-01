@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Event/Envelope.xsd"/>
+  <xs:element name="Q03_CurrentClamp_Chronon"
+    type="p:Q03_CurrentClamp_ChrononType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="Q03_CurrentClamp_ChrononType">
+    <xs:sequence>
+      <xs:element name="value_" type="xs:double"/>
+      <xs:element name="sensorId_" type="xs:string"/>
+      <xs:element name="START_TIMESTAMP" type="xs:long"/>
+      <xs:element name="END_TIMESTAMP" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

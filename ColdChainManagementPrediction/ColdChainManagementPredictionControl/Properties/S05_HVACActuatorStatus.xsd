@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xs:element name="S05_HVACActuatorStatus" type="p:S05_HVACActuatorStatusType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="S05_HVACActuatorStatusType">
+    <xs:sequence>     
+     <xs:element name="active" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>true if HVAC is activated</xs:documentation>
+        </xs:annotation>
+      </xs:element> 
+      <xs:element name="hvacStateValue"  type="xs:double">
+      <xs:annotation>
+          <xs:documentation>Value of the HVAC</xs:documentation>
+        </xs:annotation></xs:element>     
+     <xs:element name="condition" type="xs:string">
+     <xs:annotation>
+          <xs:documentation>status of the HVAC for example OK</xs:documentation>
+        </xs:annotation>
+     </xs:element>
+      <xs:element name="minAllowed" type="xs:double">
+        <xs:annotation>
+          <xs:documentation>to be documented</xs:documentation>
+        </xs:annotation>
+      </xs:element>     
+      <xs:element name="maxAllowed" type="xs:double">
+        <xs:annotation>
+          <xs:documentation>to be documented</xs:documentation>
+        </xs:annotation>
+      </xs:element>     
+            <xs:element name="resolution" type="xs:double">
+        <xs:annotation>
+          <xs:documentation>to be documented</xs:documentation>
+        </xs:annotation>
+      </xs:element>     
+      <xs:element name="targetValue" type="xs:double">
+        <xs:annotation>
+          <xs:documentation>to be documented</xs:documentation>
+        </xs:annotation>
+      </xs:element>  
+   </xs:sequence>  
+  <xs:attribute name ="hvacActuatorID" type="xs:string"><!--This ID is the MQTT Topic name from sensor, 
+	 														to differ humidity from different sensors--> </xs:attribute>	
+  <xs:attribute name ="gateway_id" type="xs:string"><!--This ID is the Gateway for tcp/ip communication--> </xs:attribute>		 														
+  </xs:complexType>
+</xs:schema>
+

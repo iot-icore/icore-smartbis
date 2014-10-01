@@ -1,0 +1,4 @@
+java.naming.factory.initial=com.pcbsys.nirvana.nSpace.NirvanaContextFactory
+java.naming.provider.url=nsp://localhost:9001
+java.naming.connection.factory=EventFactory
+java.naming.eda.jms.component.delimiter=::

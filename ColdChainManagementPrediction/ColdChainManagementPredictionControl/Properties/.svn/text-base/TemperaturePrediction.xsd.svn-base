@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xs:element name="TemperaturePrediction"
+    type="p:TemperaturePredictionType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="TemperaturePredictionType">
+    <xs:sequence>
+      <xs:element name="gateway_id" minOccurs="0" type="xs:string"/>
+<!--       <xs:element name="temperature_sensor_id"
+        minOccurs="0" type="xs:string"/> -->
+      <xs:element name="Pedicted_temp_ten_min" minOccurs="0" type="xs:double"/>
+      <xs:element name="Predicted_temp_one_hour" minOccurs="0" type="xs:double"/>
+      <xs:element name="Predicted_temp_two_hours" minOccurs="0" type="xs:double"/>
+	  <xs:element name="timestamp_" minOccurs="0" type="xs:dateTime"/> 
+	  <xs:element name="temperature_sensor_ID" minOccurs="0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

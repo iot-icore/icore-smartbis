@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Envelope.xsd"/>
+  <xs:element name="S03_CurrentClamp" type="p:S03_CurrentClampType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="S03_CurrentClampType">
+    <xs:sequence>     
+     <xs:element name="maxAllowed" type="xs:double">
+        <xs:annotation>
+          <xs:documentation>Maximum allowed current</xs:documentation>
+        </xs:annotation>
+      </xs:element>      
+     
+      <xs:element name="minAllowed" type="xs:double">
+        <xs:annotation>
+          <xs:documentation>minimum allowed current</xs:documentation>
+        </xs:annotation>
+      </xs:element>  
+      
+      <xs:element name="value" type="xs:double">
+        <xs:annotation>
+          <xs:documentation>measured current value</xs:documentation>
+        </xs:annotation>
+      </xs:element> 
+          
+   </xs:sequence>  
+
+	 <xs:attribute name ="sensor_id" type="xs:string"><!--This ID is the MQTT Topic name from sensor, 
+	 														to differ humidity from different sensors--> </xs:attribute>	 
+	 <xs:attribute name ="gateway_id" type="xs:string"><!--This ID is the Gateway for tcp/ip communication--> </xs:attribute>	 
+  </xs:complexType>
+</xs:schema>
+

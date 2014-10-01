@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Event/Envelope.xsd"/>
+  <xs:element name="Q01_Temperature" type="p:Q01_TemperatureType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="Q01_TemperatureType">
+    <xs:sequence>
+      <xs:element name="lastTemperature" type="xs:double"/>
+      <xs:element name="lastTimestamp" type="xs:string"/>
+      <xs:element name="gatewayID" type="xs:string"/>
+      <xs:element name="tempSensorID" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

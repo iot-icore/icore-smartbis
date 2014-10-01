@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:eda="http://namespaces.softwareag.com/EDA/Event"
+  xmlns:p="http://namespaces.softwareag.com/EDA/SmartBusiness"
+  targetNamespace="http://namespaces.softwareag.com/EDA/SmartBusiness" elementFormDefault="qualified">
+  <xs:import namespace="http://namespaces.softwareag.com/EDA/Event" schemaLocation="../Event/Envelope.xsd"/>
+  <xs:element name="Q_Join" type="p:Q_JoinType" substitutionGroup="eda:Payload"/>
+  <xs:complexType name="Q_JoinType">
+    <xs:sequence>
+      <xs:element name="gatewayID_01" type="xs:string"/>
+      <xs:element name="temperature_01" minOccurs="0" type="xs:double"/>
+      <xs:element name="temperature_sensorID_01" minOccurs="0" type="xs:string"/>
+      <xs:element name="temperature_02" minOccurs="0" type="xs:double"/>
+      <xs:element name="temperature_sensorID_02" minOccurs="0" type="xs:string"/>
+      <xs:element name="temperature_03" minOccurs="0" type="xs:double"/>
+      <xs:element name="temperature_sensorID_03" minOccurs="0" type="xs:string"/>
+      <xs:element name="humidity_201" minOccurs="0" type="xs:double"/>
+      <xs:element name="temperature_201" minOccurs="0" type="xs:double"/>
+      <xs:element name="humidity_sensorID_201" minOccurs="0" type="xs:string"/>
+      <xs:element name="active_501" minOccurs="0" type="xs:string"/>
+      <xs:element name="hvacStateValue_501" minOccurs="0" type="xs:double"/>
+      <xs:element name="hvacActuatorID_501" minOccurs="0" type="xs:string"/>
+      <xs:element name="value_301" minOccurs="0" type="xs:double"/>
+      <xs:element name="sensorID_301" minOccurs="0" type="xs:string"/>
+      <xs:element name="temperature_401" minOccurs="0" type="xs:double"/>
+      <xs:element name="temperature_sensorID_401" minOccurs="0" type="xs:string"/>
+      <xs:element name="temperature_104" minOccurs="0" type="xs:double"/>
+      <xs:element name="temperature_sensorID_104" minOccurs="0" type="xs:string"/>
+      <xs:element name="timestamp_104" minOccurs="0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

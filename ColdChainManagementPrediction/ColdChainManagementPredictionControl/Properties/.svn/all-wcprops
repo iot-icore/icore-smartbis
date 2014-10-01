@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties
+END
+Q01_Temperature.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q01_Temperature.xsd
+END
+S01_Temperature.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/S01_Temperature.xsd
+END
+Q02_Humidity_Chronon.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q02_Humidity_Chronon.xsd
+END
+S03_CurrentClamp.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/S03_CurrentClamp.xsd
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/log4j.properties
+END
+Q03_CurrentClamp.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q03_CurrentClamp.xsd
+END
+Q_XPath.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q_XPath.xsd
+END
+Q05_HVACActuatorStatus_Chronon.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q05_HVACActuatorStatus_Chronon.xsd
+END
+Q01_Temperature_Chronon.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q01_Temperature_Chronon.xsd
+END
+Q_Join.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q_Join.xsd
+END
+Q03_CurrentClamp_Chronon.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q03_CurrentClamp_Chronon.xsd
+END
+Q_Prediction.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q_Prediction.xsd
+END
+S02_Humidity.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/S02_Humidity.xsd
+END
+jndi.properties
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/jndi.properties
+END
+Q02_Humidity.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q02_Humidity.xsd
+END
+S05_HVACActuatorStatus.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/S05_HVACActuatorStatus.xsd
+END
+TemperaturePrediction.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/TemperaturePrediction.xsd
+END
+Q05_HVACActuatorStatus.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/sag/!svn/ver/2688857/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/Properties/Q05_HVACActuatorStatus.xsd
+END
