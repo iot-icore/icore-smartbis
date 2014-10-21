@@ -1,14 +1,14 @@
 10
 
 dir
-2688964
+2693249
 http://svndae.hq.sag:1818/svn/sag/research/ICore/WP6.4/yvh/ColdChainManagementPredictionControl/src
 http://svndae.hq.sag:1818/svn/sag
 
 
 
-2014-09-29T09:29:06.199160Z
-2688857
+2014-10-01T11:13:10.088796Z
+2689920
 yvh
 
 
@@ -26,6 +26,13 @@ svn:special svn:externals svn:needs-lock
 
 297cc777-943f-412d-8246-ef60bc8e6f84
 
+com
+dir
+
 query
 dir
+
+
+
+delete
 
