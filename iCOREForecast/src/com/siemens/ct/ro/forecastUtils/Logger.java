@@ -5,25 +5,36 @@ package com.siemens.ct.ro.forecastUtils;
 
 import java.util.List;
 
-import com.siemens.ct.ro.transportation.dataformatfromcep.TruckSensorJoinedType;
+import com.softwareag.transportation.CEPevents.TruckSensorJointEvent;
 
 /**
- * @author ro1v0393
+ * @author Lucian Sasu
  *
  */
 public class Logger {
 
-	public static void log(String message, List<TruckSensorJoinedType> orderedList) {
-		System.out.println("******" + message);
-		for(TruckSensorJoinedType truckSensorJoinedType : orderedList)
+	public static void log(String message, List<TruckSensorJointEvent> orderedList) {
+		for(TruckSensorJointEvent truckSensorJoinedType : orderedList)
 		{
-			System.out.println(toString(truckSensorJoinedType));
+			System.out.println(message + " " + toString(truckSensorJoinedType));
 		}
 	}
 
-	private static String toString(TruckSensorJoinedType truckSensorJoinedType) {
-		String str = "";
-		str += "timeStamp= " + truckSensorJoinedType.getTimestamp().toString() + "; containerTemperature1= " + truckSensorJoinedType.getContainerTemperature1() + "; containerTemperature2=" + truckSensorJoinedType.getContainerTemperature2();
+	private static String toString(TruckSensorJointEvent truckSensorJoinedType) {
+		
+		String str = 
+				
+				truckSensorJoinedType.getContainerTemperature1Value() +"," +
+				truckSensorJoinedType.getContainerTemperature2Value() + "," +
+				truckSensorJoinedType.getContainerTemperature3Value() + ","+
+				truckSensorJoinedType.getExternalTemperatureValue() + ","+
+				truckSensorJoinedType.getParcelTemperatureValue()+","+
+				truckSensorJoinedType.getHumidityValue()+","+
+				truckSensorJoinedType.getCurrentClampValue()+","+
+				(truckSensorJoinedType.isAcUnitState() ? "1" : "0") +","+
+				truckSensorJoinedType.getAcUnitTarghetValue() + ","+
+				truckSensorJoinedType.getTimestamp();
+				
 		return str;
 	}
 

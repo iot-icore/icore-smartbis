@@ -1,0 +1,92 @@
+@CHARSET "UTF-8";
+
+body{
+	background-color: #EAEAEA";
+}
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	width: 500px;
+	background-color: #216ec0;
+	padding: 5px 10px 10px;
+	border-radius: 15px;
+	margin-top: 20px;
+}
+
+#content {
+	float: right;
+	padding: 30px 100px 30px 30px;
+}
+
+.btn,#add,#cancel,#readBytesButtons,#file,.newStyle {
+	width: 180px;
+}
+
+.sansserif {
+	background-color: #FFFFFF;
+	padding: 5px;
+}
+
+#footer {
+	clear: both;
+	overflow: auto;
+}
+
+#smns_logo {
+	height: 60px;
+	float: right;
+
+}
+
+#icore_logo {
+	height: 50px;
+	padding: 10px;
+	float: left;
+}
+#cancel{
+	margin: 15px;
+}
+#unbinding{
+	 margin-left: 50px;
+	
+}
+.sansserif{
+	 font-family: sans-serif;
+	
+}
+td{
+	text-align:right;
+	width: 180px;
+	height: 40px;
+}
+
+#username,#password{
+	width: 180px;
+	height: 30px;
+}
+
+.class_bar{
+ display: block;
+    overflow: auto;
+    width: 500px;
+}
+
+#go_to_menu{
+	float: left;
+	 color: #FFFFFF;
+}
+
+#go_to_logout{
+	float: right;
+	 color: #FFFFFF;
+}
+.jobtype{
+		float: left;
+		 margin-top: 25px;
+}
+
+.myDialog {
+	border: 3px solid #002d7f;
+	border-radius: 8px;
+	box-shadow: 10px 10px 5px #888888;
+}

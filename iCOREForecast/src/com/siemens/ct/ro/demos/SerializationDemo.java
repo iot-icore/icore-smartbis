@@ -63,7 +63,7 @@ public class SerializationDemo {
 	 * @throws Exception if serialization exceptions occurs
 	 */
 	private static ByteArrayOutputStream serializeForecasterIntoMemoryStream() throws Exception{
-		ICOREForecaster icoreForecaster = new ICOREForecaster(null,  "aaaaa", "aaaaaaaa");
+		ICOREForecaster icoreForecaster = new ICOREForecaster(null);
 		ByteArrayOutputStream memory = new ByteArrayOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(memory);
 		out.writeObject(icoreForecaster);
@@ -98,7 +98,7 @@ public class SerializationDemo {
 	}
 
 	/**
-	 * Demo fro serializing an ICOREForecaster instance into a binary file
+	 * Demo for serializing an ICOREForecaster instance into a binary file
 	 * @throws Exception if serialization exceptions occur
 	 */
 	private static void serializeForecasterInFile() throws Exception {

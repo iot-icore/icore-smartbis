@@ -8,24 +8,22 @@
 			<start> value_start </start>
 			<end> value_end </end>
 		</deliveryTime>
+		<withTransportationType> withTransportationType_value </withTransportationType>
 		<acceptanceCriteria>
-			<hardMinTemperature> value </hardMinTemperature>
+			<hardMinTemperature> hardMinTemperature_value </hardMinTemperature>
 			<hardMaxTemperature> hardMaxTemperature_value </hardMaxTemperature>
 			<hardMinHumidity> hardMinHumidity_value </hardMinHumidity>
 			<hardMaxHumidity> hardMaxHumidity_value </hardMaxHumidity>
 			<softMinTemperature> softMinTemperature_value </softMinTemperature>
 			<softMaxTemperature> softMaxTemperature_value </softMaxTemperature>
 			<maximumTimeOutOfTemperature> maximumTimeOutOfTemperature </maximumTimeOutOfTemperature>
-			<maximumTimeOutOfHumidity> maximumTimeOutOfHumidity_value </maximumTimeOutOfHumidity>
 		</acceptanceCriteria>
 		<predictiveModels>
 			<candidate>
-				<id> 100 </id>
-				<withTransportationType> withTransportationType_value1 </withTransportationType>
+				<id> 100 </id>				
 			</candidate>
 			<candidate>
 				<id> 200 </id>
-				<withTransportationType> withTransportationType_value2 </withTransportationType>
 			</candidate>
 		</predictiveModels>
 	</parcel>

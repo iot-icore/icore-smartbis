@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+	version="1.0">
+
+	<description>JPA</description>
+	<package>com.siemens.ct.ro.transportation.entities</package>
+
+	<entity class="com.siemens.ct.ro.transportation.entities.ClientUser"
+		name="clientuser">
+		<table name="clientuser" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="username">
+				<column name="username" length="32" unique="true" />
+			</basic>
+			<basic name="password">
+				<column name="password" length="32" />
+			</basic>
+			<basic name="name">
+				<column name="name" length="32" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.siemens.ct.ro.transportation.entities.PackageUnit"
+		name="packageunit">
+		<table name="packageunit" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="packageId">
+				<column name="packageId" length="32" unique="true" />
+			</basic>
+			<basic name="sender">
+				<column name="sender" length="300" />
+			</basic>
+			<basic name="receiver">
+				<column name="receiver" length="300" />
+			</basic>
+			<basic name="arrivalTime">
+				<column name="arrivalTime" length="32" />
+			</basic>
+			<basic name="startTime">
+				<column name="startTime" length="32" />
+			</basic>
+			<basic name="productType">
+				<column name="productType" length="100" />
+			</basic>
+			<basic name="bound">
+				<column name="bound" length="32" />
+			</basic>
+			<basic name="orderId">
+				<column name="orderId" length="32" />
+			</basic>
+		</attributes>
+	</entity>
+	<entity class="com.siemens.ct.ro.transportation.entities.ProductType"
+		name="producttype">
+		<table name="producttype" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="typeName">
+				<column name="typeName" length="32" unique="true" />
+			</basic>
+			<basic name="jobType">
+				<column name="jobType" length="32" />
+			</basic>
+			<basic name="hardMinTemperature">
+				<column name="hardMinTemperature" length="33" />
+			</basic>
+			<basic name="hardMaxTemperature">
+				<column name="hardMaxTemperature" length="32" />
+			</basic>
+			<basic name="hardMinHumidity">
+				<column name="hardMinHumidity" length="32" />
+			</basic>
+			<basic name="hardMaxHumidity">
+				<column name="hardMaxHumidity" length="32" />
+			</basic>
+			<basic name="softMinTemperature">
+				<column name="softMinTemperature" length="32" />
+			</basic>
+			<basic name="softMaxTemperature">
+				<column name="softMaxTemperature" length="32" />
+			</basic>
+			<basic name="maximumTimeOutOfTemperature">
+				<column name="maximumTimeOutOfTemperature" length="32" />
+			</basic>
+			<basic name="maximumTimeOutOfHumidity">
+				<column name="maximumTimeOutOfHumidity" length="32" />
+			</basic>
+
+		</attributes>
+	</entity>
+	<entity class="com.siemens.ct.ro.transportation.entities.Order"
+		name="orderunit">
+		<table name="orderunit" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="orderId">
+				<column name="orderId" length="32" unique="true" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.softwareag.transportation.CEPevents.TemperatureEvent"
+		name="temperatureevent">
+		<table name="temperatureevent" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="timestamp">
+				<column name="timestamp" length="32" />
+			</basic>
+			<basic name="temperature">
+				<column name="temperature" />
+			</basic>
+			<basic name="sensorID">
+				<column name="sensorID" length="100" />
+			</basic>
+			<basic name="gatewayID">
+				<column name="gatewayID" length="100" />
+			</basic>
+		</attributes>
+	</entity>
+
+
+	<entity class="com.softwareag.transportation.CEPevents.HumidityEvent"
+		name="humidityevent">
+		<table name="humidityevent" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="timestamp">
+				<column name="timestamp" length="32" />
+			</basic>
+			<basic name="humidity">
+				<column name="humidity" />
+			</basic>
+			<basic name="sensorID">
+				<column name="sensorID" />
+			</basic>
+			<basic name="gatewayID">
+				<column name="gatewayID" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity
+		class="com.softwareag.transportation.CEPevents.TemperaturePredictionEvent"
+		name="temperaturepredictionevent">
+		<table name="temperaturepredictionevent" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="gatewayId">
+				<column name="gatewayId" />
+			</basic>
+			<basic name="timestamp">
+				<column name="timestamp" length="32" />
+			</basic>
+			<basic name="temperatureSensorID">
+				<column name="temperatureSensorID" />
+			</basic>
+			<basic name="pedictedTempTenMin">
+				<column name="pedictedTempTenMin" />
+			</basic>
+			<basic name="predictedTempOneHour">
+				<column name="predictedTempOneHour" />
+			</basic>
+			<basic name="predictedTempTwoHours">
+				<column name="predictedTempTwoHours" />
+			</basic>
+			<basic name="packageID">
+				<column name="packageID" />
+			</basic>
+		</attributes>
+	</entity>
+
+</entity-mappings> 

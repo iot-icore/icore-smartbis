@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="src/main/webapp/script/d3.v2.js|src/main/webapp/script/jquery-ui.min.js|src/main/webapp/script/jquery.min.js|target/logisticclient-1.0.0-BUILD-SNAPSHOT/script/jquery-ui.min.js|target/logisticclient-1.0.0-BUILD-SNAPSHOT/script/jquery.min.js" kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

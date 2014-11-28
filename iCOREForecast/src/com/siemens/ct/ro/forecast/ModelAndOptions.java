@@ -41,4 +41,9 @@ public class ModelAndOptions implements Serializable {
 		return options;
 	}
 	
+	@Override
+	public String toString() {
+		return "Options: " + options + "; innerModel: " + innerModel.getClass().toString();
+	}
+	
 }

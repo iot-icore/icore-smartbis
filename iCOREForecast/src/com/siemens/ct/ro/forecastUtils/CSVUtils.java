@@ -6,16 +6,10 @@ package com.siemens.ct.ro.forecastUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import com.siemens.ct.ro.transportation.dataformatfromcep.TruckSensorJoinedType;
+import com.softwareag.transportation.CEPevents.TruckSensorJointEvent;
 
 /**
  * Data reading methods from CSV files
@@ -30,9 +24,9 @@ public class CSVUtils {
 	 * @return a list of TruckSensorJoinedType objects
 	 * @throws FileNotFoundException if the CSV file is not found
 	 */
-	public static List<TruckSensorJoinedType> readData(String fileName, boolean skipFirstLine) throws FileNotFoundException
+	public static List<TruckSensorJointEvent> readData(String fileName, boolean skipFirstLine) throws FileNotFoundException
 	{
-		List<TruckSensorJoinedType> result = new ArrayList<TruckSensorJoinedType>();
+		List<TruckSensorJointEvent> result = new ArrayList<TruckSensorJointEvent>();
 		
 		Scanner scanner = new Scanner(new File(fileName));
 		try
@@ -41,36 +35,25 @@ public class CSVUtils {
 			{
 				scanner.nextLine();
 			}
-			Date now = new Date();
 			while(scanner.hasNextLine())
 			{
 				String line = scanner.nextLine();
 				String[] tokens = line.split(",");
-				TruckSensorJoinedType item = new TruckSensorJoinedType();
+				TruckSensorJointEvent item = new TruckSensorJointEvent();
 				
-				item.setContainerTemperature1(DataConverter.fromStringTo_double(tokens[0]));
-				item.setContainerTemperature2(DataConverter.fromStringTo_double(tokens[1]));
-				item.setContainerTemperature3(DataConverter.fromStringTo_double(tokens[2]));
-				item.setExternalTemperature(DataConverter.fromStringTo_double(tokens[3]));
-				item.setParcelTemperature(DataConverter.fromStringTo_double(tokens[4]));
+//				temperatureInfrastructureSensor1,temperatureInfrastructureSensor2,temperatureInfrastructureSensor3,externalTemperature,temperatureParcel,humidityInfrastructureSensor,currentClampValue,hvacStateOn,hvacStateValue,time
+				
+				item.setContainerTemperature1Value(DataConverter.fromStringTo_double(tokens[0]));
+				item.setContainerTemperature2Value(DataConverter.fromStringTo_double(tokens[1]));
+				item.setContainerTemperature3Value(DataConverter.fromStringTo_double(tokens[2]));
+				item.setExternalTemperatureValue(DataConverter.fromStringTo_double(tokens[3]));
+				item.setParcelTemperatureValue(DataConverter.fromStringTo_double(tokens[4]));
 				item.setHumidityValue(DataConverter.fromStringTo_double(tokens[5]));
 				item.setCurrentClampValue(DataConverter.fromStringTo_double(tokens[6]));
-				item.setHvacStateOn(DataConverter.fromStringToBoolean(tokens[7]));
-				item.setHvacStateValue(DataConverter.fromStringTo_double(tokens[8]));
-//				item.setTime(DataConverter.fromStringToLong(tokens[9]));
-				
-				now.setTime(now.getTime() + 1000*60*10);//10 minutes
-				
-				GregorianCalendar c = new GregorianCalendar();
-				c.setTime(now);
-				XMLGregorianCalendar date2;
-				try {
-					date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-					item.setTimestamp(date2);
-				} catch (DatatypeConfigurationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				item.setAcUnitState(DataConverter.fromStringToBoolean(tokens[7]));
+				item.setAcUnitTarghetValue(DataConverter.fromStringTo_double(tokens[8]));
+//				item.setTimestamp(DataConverter.fromStringToXMLGregorianCalendar(tokens[9]));
+				item.setTimestamp(DataConverter.fromStringToLong(tokens[9]));
 				
 				result.add(item);
 			}
@@ -90,9 +73,9 @@ public class CSVUtils {
 	 * @return a list of TruckSensorJoinedType objects
 	 * @throws FileNotFoundException if the CSV file is not found
 	 */
-	public static List<TruckSensorJoinedType> readData2(String fileName, boolean skipFirstLine) throws FileNotFoundException
+	public static List<TruckSensorJointEvent> readData2(String fileName, boolean skipFirstLine) throws FileNotFoundException
 	{
-		List<TruckSensorJoinedType> result = new ArrayList<TruckSensorJoinedType>();
+		List<TruckSensorJointEvent> result = new ArrayList<TruckSensorJointEvent>();
 		
 		Scanner scanner = new Scanner(new File(fileName));
 		try
@@ -105,28 +88,29 @@ public class CSVUtils {
 			{
 				String line = scanner.nextLine();
 				String[] tokens = line.split(",");
-				TruckSensorJoinedType item = new TruckSensorJoinedType();
+				TruckSensorJointEvent item = new TruckSensorJointEvent();
 				
 				item.setGatewayId(tokens[1]);
-				item.setContainerTemperature1(DataConverter.fromStringTo_double(tokens[2]));
+				item.setContainerTemperature1Value(DataConverter.fromStringTo_double(tokens[2]));
 				item.setContainerTemperatureSensorId1(tokens[3]);
-				item.setContainerTemperature2(DataConverter.fromStringTo_double(tokens[4]));
+				item.setContainerTemperature2Value(DataConverter.fromStringTo_double(tokens[4]));
 				item.setContainerTemperatureSensorId2(tokens[5]);
-				item.setContainerTemperature3(DataConverter.fromStringTo_double(tokens[6]));
+				item.setContainerTemperature3Value(DataConverter.fromStringTo_double(tokens[6]));
 				item.setContainerTemperatureSensorId3(tokens[7]);
 				item.setHumidityValue(DataConverter.fromStringTo_double(tokens[8]));
-				item.setHumidityTemperature(DataConverter.fromStringTo_double(tokens[9]));
+				item.setHumidityValue(DataConverter.fromStringTo_double(tokens[9]));
 				item.setHumiditySensorId(tokens[10]);
-				item.setHvacStateOn(DataConverter.fromStringToBoolean(tokens[11]));
-				item.setHvacStateValue(DataConverter.fromStringTo_double(tokens[12]));
-				item.setHvacActuatorId(tokens[13]);
+				item.setAcUnitState(DataConverter.fromStringToBoolean(tokens[11]));
+				item.setAcUnitTarghetValue(DataConverter.fromStringTo_double(tokens[12]));
+				item.setAcUnitActuatorId(tokens[13]);
 				item.setCurrentClampValue(DataConverter.fromStringTo_double(tokens[14]));
 				item.setCurrentClampSensorId(tokens[15]);
-				item.setExternalTemperature(DataConverter.fromStringTo_double(tokens[16]));
+				item.setExternalTemperatureValue(DataConverter.fromStringTo_double(tokens[16]));
 				item.setExternalTemperatureId(tokens[17]);
-				item.setParcelTemperature(DataConverter.fromStringTo_double(tokens[18]));
+				item.setParcelTemperatureValue(DataConverter.fromStringTo_double(tokens[18]));
 				item.setParcelTemperatureSensorId(tokens[19]);
-				item.setTimestamp(DataConverter.fromStringToXMLGregorianCalendar(tokens[20]));
+//				item.setTimestamp(DataConverter.fromStringToXMLGregorianCalendar(tokens[20]));
+				item.setTimestamp(DataConverter.fromStringToLong(tokens[20]));
 				
 				result.add(item);
 			}
@@ -138,4 +122,6 @@ public class CSVUtils {
 		
 		return result;
 	}
+	
+	
 }
